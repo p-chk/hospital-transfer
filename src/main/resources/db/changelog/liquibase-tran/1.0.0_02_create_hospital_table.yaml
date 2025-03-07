@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_hospital_table
+      author: chayakorn.k
+      changes:
+        - createTable:
+            tableName: hospital
+            columns:
+              - column:
+                  name: hospital_seqnum
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: hospital_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: hospital_transfer_queue
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: insert_hospital_b
+      author: chayakorn.k
+      changes:
+        - insert:
+            tableName: hospital
+            columns:
+              - column:
+                  name: hospital_name
+                  value: "Hospital B"
+              - column:
+                  name: hospital_transfer_queue
+                  value: "host.docker.internal:65432"

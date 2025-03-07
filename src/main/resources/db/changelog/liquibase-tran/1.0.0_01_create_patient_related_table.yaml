@@ -1,0 +1,262 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_patient_table
+      author: chayakorn.k
+      changes:
+        - createTable:
+            tableName: patient
+            columns:
+              - column:
+                  name: patient_seqnum
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: patient_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: phn
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dob
+                  type: date
+              - column:
+                  name: address
+                  type: varchar(255)
+              - column:
+                  name: phone
+                  type: varchar(255)
+              - column:
+                  name: gender
+                  type: varchar(255)
+              - column:
+                  name: insurance_id
+                  type: varchar(255)
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create_incoming_transfer
+      author: chayakorn.k
+      changes:
+        - createTable:
+            tableName: incoming_transfer
+            columns:
+              - column:
+                  name: incoming_transfer_seqnum
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: message
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: received_on
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: create_outgoing_transfer
+      author: chayakorn.k
+      changes:
+        - createTable:
+            tableName: outgoing_transfer
+            columns:
+              - column:
+                  name: outgoing_transfer_seqnum
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: patient_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_outgoing_transfer_patient
+                    references: patient(patient_id)
+              - column:
+                  name: destination
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitted_on
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: insert_sample_patients
+      author: chayakorn.k
+      changes:
+        - insert:
+            tableName: patient
+            columns:
+              - column:
+                  name: patient_id
+                  value: "AZ0001"
+              - column:
+                  name: phn
+                  value: "1234567890"
+              - column:
+                  name: first_name
+                  value: "John"
+              - column:
+                  name: last_name
+                  value: "Doe"
+              - column:
+                  name: dob
+                  value: "1985-04-12"
+              - column:
+                  name: address
+                  value: "123 Main St, ON"
+              - column:
+                  name: phone
+                  value: "555-1234"
+              - column:
+                  name: gender
+                  value: "Male"
+              - column:
+                  name: insurance_id
+                  value: "INS-A123"
+              - column:
+                  name: status
+                  value: "IN-PATIENT"
+
+        - insert:
+            tableName: patient
+            columns:
+              - column:
+                  name: patient_id
+                  value: "AZ0002"
+              - column:
+                  name: phn
+                  value: "1234567891"
+              - column:
+                  name: first_name
+                  value: "Jane"
+              - column:
+                  name: last_name
+                  value: "Smith"
+              - column:
+                  name: dob
+                  value: "1990-07-25"
+              - column:
+                  name: address
+                  value: "456 Elm St, ON"
+              - column:
+                  name: phone
+                  value: "555-5678"
+              - column:
+                  name: gender
+                  value: "Female"
+              - column:
+                  name: insurance_id
+                  value: "INS-B456"
+              - column:
+                  name: status
+                  value: "IN-PATIENT"
+
+        - insert:
+            tableName: patient
+            columns:
+              - column:
+                  name: patient_id
+                  value: "AZ0003"
+              - column:
+                  name: phn
+                  value: "9876543210"
+              - column:
+                  name: first_name
+                  value: "Alice"
+              - column:
+                  name: last_name
+                  value: "Johnson"
+              - column:
+                  name: dob
+                  value: "1975-11-30"
+              - column:
+                  name: address
+                  value: "789 Maple Ave, ON"
+              - column:
+                  name: phone
+                  value: "555-6789"
+              - column:
+                  name: gender
+                  value: "Female"
+              - column:
+                  name: insurance_id
+                  value: "INS-C789"
+              - column:
+                  name: status
+                  value: "IN-PATIENT"
+
+        - insert:
+            tableName: patient
+            columns:
+              - column:
+                  name: patient_id
+                  value: "AZ0004"
+              - column:
+                  name: phn
+                  value: "1122334455"
+              - column:
+                  name: first_name
+                  value: "Bob"
+              - column:
+                  name: last_name
+                  value: "Miller"
+              - column:
+                  name: dob
+                  value: "1982-06-15"
+              - column:
+                  name: address
+                  value: "246 Oak St, ON"
+              - column:
+                  name: phone
+                  value: "555-4321"
+              - column:
+                  name: gender
+                  value: "Male"
+              - column:
+                  name: insurance_id
+                  value: "INS-D246"
+              - column:
+                  name: status
+                  value: "IN-PATIENT"
+

@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: hospital-backend
+  liquibase: true
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+server:
+  tomcat:
+    so-linger: 0
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:postgresql://hospital-backend-db:5432/
+    username: local
+    password: local
+logging:
+  level:
+    root: info
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PW}
+logging:
+  level:
+    root: info

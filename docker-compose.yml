@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  hospital-backend:
+    platform: linux/x86_64
+    image: 'hospital-backend:0.0.52'
+    ports:
+      - "8080:8080"
+      - "65433:65433"
+    build:
+      context: .
+    container_name: hospital-backend
+    depends_on:
+      - hospital-backend-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://hospital-backend-db:5432/hospital-backend-db
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: local
+
+  hospital-backend-db:
+    image: 'postgres:13.1-alpine'
+    ports:
+      - '5432:5432'
+    container_name: hospital-backend-db
+    environment:
+      POSTGRES_DB: hospital-backend-db
+      POSTGRES_USER: local
+      POSTGRES_PASSWORD: local
+    volumes:
+      - hospital-backend-db:/var/lib/postgres/
+volumes:
+  hospital-backend-db:
+    driver: local
