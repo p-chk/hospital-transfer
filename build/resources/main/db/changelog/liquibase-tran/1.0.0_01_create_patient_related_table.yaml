@@ -156,7 +156,7 @@ databaseChangeLog:
                   value: "INS-A123"
               - column:
                   name: status
-                  value: "In-Patient"
+                  value: "IN-PATIENT"
 
         - insert:
             tableName: patient
@@ -190,7 +190,7 @@ databaseChangeLog:
                   value: "INS-B456"
               - column:
                   name: status
-                  value: "In-Patient"
+                  value: "IN-PATIENT"
 
         - insert:
             tableName: patient
@@ -224,7 +224,7 @@ databaseChangeLog:
                   value: "INS-C789"
               - column:
                   name: status
-                  value: "In-Patient"
+                  value: "IN-PATIENT"
 
         - insert:
             tableName: patient
@@ -258,5 +258,5 @@ databaseChangeLog:
                   value: "INS-D246"
               - column:
                   name: status
-                  value: "In-Patient"
+                  value: "IN-PATIENT"
 

@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 @UtilityClass
 public class HL7MessageBuilder {
 
+    private static final int ORIGIN = Integer.parseInt(System.getenv("SPRING_ORIGIN_HOSPITAL"));
+
     public static String buildHL7Message(PatientDto patient, String destinationHospital, String messageType, String transferStatus) {
         if (!ADTMessageTypeConstants.isValidADT(messageType)) {
             throw new IllegalArgumentException("Invalid ADT message type: " + messageType);
@@ -18,13 +20,13 @@ public class HL7MessageBuilder {
         StringBuilder hl7Message = new StringBuilder();
 
         // MSH Segment
-        hl7Message.append("MSH|^~\\&|HospitalA|EHR|")
+        hl7Message.append("MSH|^~\\&|" + ORIGIN +"|EHR|")
                 .append(destinationHospital).append("|EHR|")
                 .append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))).append("||")
                 .append(messageType).append("|").append(patient.getPhn()).append("|P|2.5\r");
 
         // PID Segment
-        hl7Message.append("PID|1||").append(patient.getPhn()).append("^^^HOSPITALA^MRN||")
+        hl7Message.append("PID|1||").append(patient.getPhn()).append("^^^" + ORIGIN + "^MRN||")
                 .append(patient.getLastName()).append("^").append(patient.getFirstName()).append("||")
                 .append(patient.getDob()).append("|")
                 .append(patient.getGender().substring(0, 1).toUpperCase()).append("|||")

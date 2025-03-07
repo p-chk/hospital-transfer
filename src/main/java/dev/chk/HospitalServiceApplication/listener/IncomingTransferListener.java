@@ -27,7 +27,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class IncomingTransferListener {
 
-    private static final int HL7_PORT = 65433;
+    private static final int HL7_PORT = Integer.parseInt(System.getenv("SPRING_INCOMING_PORT"));
     private final IncomingTransferService incomingTransferService;
     private SimpleServer server;
     private boolean isRunning = false; // Prevent multiple instances
