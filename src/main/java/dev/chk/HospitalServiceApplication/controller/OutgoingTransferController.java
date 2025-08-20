@@ -1,6 +1,7 @@
 package dev.chk.HospitalServiceApplication.controller;
 
 import dev.chk.HospitalServiceApplication.dto.OutgoingTransferDto;
+import dev.chk.HospitalServiceApplication.dto.OutgoingTransferStatusUpdateDto;
 import dev.chk.HospitalServiceApplication.dto.TransferRequestDto;
 import dev.chk.HospitalServiceApplication.service.OutgoingTransferService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +43,12 @@ public class OutgoingTransferController {
         OutgoingTransferDto transferDto = outgoingTransferService.completeTransfer(transferRequest.getPatientId(),
                 transferRequest.getDestinationHospital());
         return ResponseEntity.status(HttpStatus.OK).body(transferDto);
+    }
+    
+    @PutMapping("/update-status")
+    public ResponseEntity<OutgoingTransferDto> updateTransferStatus(
+            @Valid @RequestBody OutgoingTransferStatusUpdateDto statusUpdateDto) {
+        OutgoingTransferDto updatedTransfer = outgoingTransferService.updateTransferStatus(statusUpdateDto);
+        return ResponseEntity.ok(updatedTransfer);
     }
 }

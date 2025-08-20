@@ -1,6 +1,7 @@
 package dev.chk.HospitalServiceApplication.service.impl;
 
 import dev.chk.HospitalServiceApplication.dto.OutgoingTransferDto;
+import dev.chk.HospitalServiceApplication.dto.OutgoingTransferStatusUpdateDto;
 import dev.chk.HospitalServiceApplication.mapper.OutgoingTransferMapper;
 import dev.chk.HospitalServiceApplication.mapper.PatientMapper;
 import dev.chk.HospitalServiceApplication.model.OutgoingTransfer;
@@ -94,5 +95,16 @@ public class OutgoingTransferServiceImpl implements OutgoingTransferService {
 
         System.out.println("Transfer marked as COMPLETED for ID: " + patientId);
         return outgoingTransferMapper.toDto(outgoingTransferRepository.save(outgoingTransfer));
+    }
+    
+    @Override
+    public OutgoingTransferDto updateTransferStatus(OutgoingTransferStatusUpdateDto statusUpdateDto) {
+        OutgoingTransfer outgoingTransfer = outgoingTransferRepository.findById(statusUpdateDto.getTransferId())
+                .orElseThrow(() -> new NotFoundException("Outgoing transfer not found with ID: " + statusUpdateDto.getTransferId()));
+        
+        outgoingTransfer.setStatus(statusUpdateDto.getStatus());
+        
+        OutgoingTransfer updatedTransfer = outgoingTransferRepository.save(outgoingTransfer);
+        return outgoingTransferMapper.toDto(updatedTransfer);
     }
 }

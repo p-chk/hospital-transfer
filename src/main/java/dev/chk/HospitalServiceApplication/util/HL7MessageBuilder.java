@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 @UtilityClass
 public class HL7MessageBuilder {
 
-    private static final int ORIGIN = Integer.parseInt(System.getenv("SPRING_ORIGIN_HOSPITAL"));
+    private static final String ORIGIN = System.getenv("SPRING_ORIGIN_HOSPITAL");
 
     public static String buildHL7Message(PatientDto patient, String destinationHospital, String messageType, String transferStatus) {
         if (!ADTMessageTypeConstants.isValidADT(messageType)) {
